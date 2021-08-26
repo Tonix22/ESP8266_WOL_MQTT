@@ -1,1 +1,6 @@
 code/build/*
+WOL_only/build/*
+code/sdkconfig
+WOL_only/sdkconfig
+WOL_only/sdkconfig.old
+WOL_only/main/Kconfig.projbuild
