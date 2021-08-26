@@ -11,6 +11,8 @@ For this code it is assumed that you can do Wake-On-LAN in your PC. The aim of t
 
 The main idea is to use an ESP8266 to send a WOL packet throught udp with port 9 and lwipsockets.
 
+<img src="/Diagrams/esp8266.jpg" alt="WIFIPLUG" alt="drawing" width="200"/>
+
 For Remote wake up there are two ways to this.
 
 ### Easier but extra cost
@@ -45,17 +47,53 @@ Pull this docker image tonix22/esp8266-idf
 user@user:~$ sudo docker pull tonix22/esp8266-idf
 ```
 
-Run docker image, open a terminal where you has acces to work. 
+Run docker image, open a terminal in the source folder with the device esp8266 pluged. 
 
 ```console
 user@user:~$ ./mount_docker.sh
 root@c6106fe485ce:/home/esp# cd /project
 ```
+## Set up WIFI credentials
+
+Got to your project folder [WOL_only](/WOL_only) or [MQTT_and_WOL](/MQTT_and_WOL) it is the same process for both of them. Then configure the WIFI_SSID and PASSWORD
+
+**Example**
+
+```console
+root@c6106fe485ce:/home/esp# cd WOL_only/
+root@c6106fe485ce:/home/esp# make menuconfig
+```
+Choose the option Example Connection Configuration and then
+setup your wifi credentials Wifi SSID and Wifi Password
+
+<img src="https://user-images.githubusercontent.com/8690843/131026597-22a9d280-6229-40a9-ba7b-7c445e369fdf.png" alt="GeneralOverview" alt="drawing" width="300"/> <img src="https://user-images.githubusercontent.com/8690843/131026896-c2cd9784-26d3-4b23-97f9-142e10ee070a.png" alt="GeneralOverview" alt="drawing" width="300"/>
+
+**NOTE**
+In this same menu you can configure your USB port, for linux users it may be also setup. Check step 4 from this link 
+[USB_DEVICE SETTINGS](https://github.com/Tonix22/LuxFlux_Esp8266_LighStick/wiki/1.-Docker-Setup#4run-the-container)
 
 
+## Configure MAC addres
 
+Go to **MQTT_and_WOL/main/wol.h** or **WOL_only/main/udp_client.c** ,and modify the #define MAC_ADDR with your MAC. 
+```C
+#define MAC_ADDR 0x24,0x4B,0xFE,0x8d,0x81,0x3D
+```
+## Configure MQTT
 
+Go to **MQTT_and_WOL/main/mqtt.h** and then check all paramters requerided for your project. If there remains any field just deleted in mqtt_cfg in mqtt.c
 
-
+# Download project to board
+ The last step is to compile and save the code in the device.
+ 
+ **ALL** compile folder source files
+ 
+ **Flash** download code to board
+ 
+ **Monitor** It is optional, it shows device debug info. 
+ 
+ ```console
+root@c6106fe485ce:/home/esp/project/WOL_only# make all flash monitor
+```
 
 
