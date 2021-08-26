@@ -17,7 +17,7 @@ For Remote wake up there are two ways to this.
 
 Use the [WOL_only](/WOL_only) project to set up the wifi settings and MAC address in the header file,then just power on the esp8266 device and it will run a sript to excute the WOL. The extra cost is because you need a wifi remote wifi plug to this. So the main idea to power up remotely the esp8266 once is ready it sends magic packet to PC.
 
-<img src="/Diagrams/smatplug.png" alt="WIFIPLUG" style="height: 100px; width:100px;"/>
+<img src="/Diagrams/smatplug.png" alt="WIFIPLUG" style="height: 50px; width:50px;"/>
 
 
 ### Cheaper with extra work
@@ -26,7 +26,7 @@ Use the [MQTT_and_WOL](/MQTT_and_WOL) project to set up and MQTT remote server. 
 
 The MQTT parameters are accesible from the code and the most frequently parameters are in the header file with defines. In my case I used [adafruit.io](https://io.adafruit.com) as an MQTT server, but you could use other suppliers as [CloudMqtt](https://www.cloudmqtt.com/plans.html) or [AWS](https://docs.aws.amazon.com/iot/latest/developerguide/mqtt.html). I used adafruit because is free, but don't hope high bandwith and 100% guaranteed responses it fails sometimes when server sleep for some seconds. 
 
-<img src="/Diagrams/General_View.jpg" alt="GeneralOverview" style="height: 100px; width:100px;"/>
+<img src="/Diagrams/General_View.jpg" alt="GeneralOverview" style="height: 50px; width:50px;"/>
 
 # Install enviorment
 
