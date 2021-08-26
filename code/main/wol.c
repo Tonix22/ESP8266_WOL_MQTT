@@ -3,6 +3,8 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/semphr.h"
+
 #include "esp_system.h"
 #include "esp_log.h"
 #include "esp_netif.h"
@@ -13,21 +15,19 @@
 #include "lwip/sys.h"
 #include <lwip/netdb.h>
 
-#define PORT 9
-#define MAC_ADDR 0x24,0x4B,0xFE,0x8d,0x81,0x3D
-#define IP_ADDR "192.168.0.255"
+#include "wol.h"
+#include "mqtt.h"
 
-static const char *TAG = "example";
+static const char *TAG = "WOL";
+extern SemaphoreHandle_t WOL_In_process;
 
-
-static void udp_client_task(void *pvParameters)
+void udp_wol_client_task(void *pvParameters)
 {    
     int i;
     unsigned char toSend[102];
     unsigned char mac[6] = {MAC_ADDR};
     struct sockaddr_in udpClient, udpServer;
     int broadcast = 1 ;
-
 
     ESP_LOGI(TAG, "Creating socket...");
     // UDP Socket creation
@@ -56,8 +56,8 @@ static void udp_client_task(void *pvParameters)
     udpServer.sin_family = AF_INET;
 
     // Braodcast address
-    udpServer.sin_addr.s_addr = inet_addr(IP_ADDR);
-    udpServer.sin_port = htons(PORT);
+    udpServer.sin_addr.s_addr = inet_addr(WOL_IP_ADDR);
+    udpServer.sin_port = htons(WOL_PORT);
 
     for(int i=0;i<3;i++)
     {
@@ -67,5 +67,7 @@ static void udp_client_task(void *pvParameters)
 
     ESP_LOGI(TAG, "Packet sent sucessfully");
     end:
+
+    xSemaphoreGive(WOL_In_process);
     vTaskDelete(NULL);
 }
