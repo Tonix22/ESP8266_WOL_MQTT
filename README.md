@@ -4,16 +4,21 @@
 **Review Date: 26/08/2021** 
 **Open Source**
 
+# Docker instalation
+You can skip this step if you already have a docker instalation.
+
+
+https://gist.github.com/Tonix22/5c046b171b697bac2c0b4f5110a19656
 
 # Main scope and overview
 
-For this code it is assumed that you can do Wake-On-LAN in your PC. The aim of the project is to do Wake-On-LAN outside of your local network and provide an effective way to avoid using VNP in your home or in some place that you may not have access to a router to create one.
+This code assumes that you are familiar with Wake-On-LAN and can perform it on your PC. The goal of this project is to enable Wake-On-LAN outside of your local network, as an alternative to using a virtual private network (VPN) at home or in locations where you do not have access to a router to set one up.
 
 The main idea is to use an ESP8266 to send a WOL packet throught udp with port 9 and lwipsockets.
 
 <img src="/Diagrams/esp8266.jpg" alt="WIFIPLUG" alt="drawing" width="200"/>
 
-For Remote wake up there are two ways to this.
+For remote wake up there are two ways to this.
 
 ### Easier but extra cost
 
